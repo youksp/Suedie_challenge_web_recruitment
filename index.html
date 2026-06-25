@@ -1,16 +1,801 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suedie</title>
-    <style>
-        body {
-            font-size: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>부스터 챌린지 8기 | 직장인을 위한 4주 경제·재테크 챌린지</title>
+  <meta name="description" content="월급은 들어오는데 돈은 잘 안 모이고, 경제 공부를 시작해도 어디서부터 봐야 할지 모르겠다면. 직장인을 위한 4주 실행형 경제·재테크 챌린지, 부스터 챌린지 8기." />
+  <meta property="og:title" content="부스터 챌린지 8기" />
+  <meta property="og:description" content="평일 미션 + 주말 강의로 돈 관리, 절약, 투자 기초, 미래 준비까지 정리하는 4주 챌린지" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#E45A33" />
+  <style>
+    :root {
+      --bg: #FAF6F0;
+      --bg-soft: #FFF1EA;
+      --card: rgba(255,255,255,0.94);
+      --text: #2A221E;
+      --muted: #70645E;
+      --line: rgba(101, 59, 43, 0.10);
+      --primary: #E45A33;
+      --primary-deep: #B23C1B;
+      --primary-soft: rgba(228, 90, 51, 0.10);
+      --hero-deep: #8E2E18;
+      --hero-mid: #C74424;
+      --hero-soft: #F06A41;
+      --shadow: 0 18px 40px rgba(126, 56, 31, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max: 1080px;
+      --content: 740px;
+      --lh: 1.76;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(228, 90, 51, 0.14), transparent 25%),
+        radial-gradient(circle at top left, rgba(255, 206, 184, 0.22), transparent 20%),
+        linear-gradient(180deg, #FFF8F4 0%, var(--bg) 100%);
+      letter-spacing: -0.01em;
+      line-height: var(--lh);
+      word-break: keep-all;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    .container {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+    }
+    .content {
+      width: min(100%, var(--content));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(250, 246, 240, 0.84);
+      border-bottom: 1px solid rgba(101, 59, 43, 0.07);
+    }
+    .topbar-inner {
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .brand {
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 650;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .brand small {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .btn,
+    .nav-btn {
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease, box-shadow .2s ease;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .btn:hover,
+    .nav-btn:hover { transform: translateY(-1px); }
+    .nav-btn {
+      min-height: 42px;
+      padding: 0 14px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(178, 60, 27, 0.18);
+    }
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+      box-shadow: 0 14px 28px rgba(178, 60, 27, 0.18);
+    }
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.86);
+      border: 1px solid var(--line);
+    }
+    .btn-outline {
+      color: var(--primary-deep);
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(228, 90, 51, 0.16);
+    }
+
+    .section { padding: 58px 0; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      font-size: clamp(28px, 7.2vw, 48px);
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      font-weight: 690;
+    }
+    h2 {
+      font-size: clamp(24px, 6vw, 38px);
+      line-height: 1.24;
+      letter-spacing: -0.03em;
+      font-weight: 650;
+      margin-bottom: 12px;
+    }
+    h3 {
+      font-size: clamp(17px, 4.8vw, 24px);
+      line-height: 1.42;
+      letter-spacing: -0.02em;
+      font-weight: 620;
+      margin-bottom: 8px;
+    }
+    p, li {
+      font-size: clamp(14px, 3.8vw, 16px);
+      line-height: var(--lh);
+      color: var(--muted);
+      font-weight: 420;
+    }
+    strong { color: var(--text); font-weight: 620; }
+
+    .hero-card,
+    .card,
+    .review-card,
+    .week-card,
+    .cta-card,
+    details {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 26%),
+        linear-gradient(160deg, var(--hero-deep) 0%, var(--hero-mid) 56%, var(--hero-soft) 100%);
+      color: #fff;
+    }
+    .hero-copy { padding: 24px 18px 18px; }
+    .hero-copy p {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.88);
+    }
+    .hero .eyebrow,
+    .hero-card .eyebrow {
+      background: rgba(255,255,255,0.14);
+      color: #fff2eb;
+    }
+    .hero-quick,
+    .hero-actions,
+    .hero-meta,
+    .stack,
+    .results,
+    .steps,
+    .proof,
+    .reviews,
+    .faq {
+      display: grid;
+      gap: 14px;
+    }
+    .hero-quick { margin-top: 20px; gap: 10px; }
+    .hero-actions { margin-top: 18px; gap: 10px; }
+    .quick-row,
+    .meta {
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #fff;
+    }
+    .quick-row {
+      font-size: 14px;
+      font-weight: 520;
+    }
+    .hero-meta {
+      padding: 0 18px 18px;
+      margin-top: 2px;
+      gap: 10px;
+    }
+    .meta-label {
+      font-size: 11px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 4px;
+      font-weight: 560;
+    }
+    .meta-value {
+      font-size: 14px;
+      color: #fff;
+      font-weight: 520;
+      line-height: 1.68;
+    }
+
+    .card { padding: 18px 16px; }
+    .stack,
+    .results,
+    .steps,
+    .proof,
+    .reviews,
+    .faq { margin-top: 22px; }
+
+    .highlight {
+      margin-top: 18px;
+      padding: 18px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(228, 90, 51, 0.09), rgba(255, 243, 236, 0.94));
+      border: 1px solid rgba(228, 90, 51, 0.12);
+    }
+
+    .mini-item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #FFF0E8;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+    .step-num,
+    .week-chip,
+    .role {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 11px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      font-size: 12px;
+      font-weight: 620;
+      margin-bottom: 10px;
+    }
+
+    .mentor-card {
+      display: grid;
+      gap: 14px;
+      padding: 18px 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      margin-top: 22px;
+    }
+    .mentor-head {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .mentor-head img {
+      width: 84px;
+      height: 84px;
+      border-radius: 22px;
+      object-fit: cover;
+      border: 1px solid rgba(228, 90, 51, 0.10);
+      background: #ffe7dc;
+    }
+    .mentor-body ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+    .mentor-body li + li { margin-top: 4px; }
+
+    .week-note {
+      margin-top: 16px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+    .weeks {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .week-card { padding: 18px 16px; }
+    .week-goal {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(101, 59, 43, 0.07);
+    }
+    .week-card p + p { margin-top: 6px; }
+    .tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: #FFF2EC;
+      color: var(--primary-deep);
+      font-size: 12px;
+      font-weight: 560;
+    }
+
+    .cta-inline {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .review-intro {
+      margin-top: 16px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: #FFF7F3;
+      border: 1px solid rgba(228, 90, 51, 0.10);
+    }
+    .review-card { overflow: hidden; }
+    .review-card img {
+      width: 100%;
+      height: auto;
+      background: #fff;
+      object-fit: contain;
+      border-bottom: 1px solid rgba(101, 59, 43, 0.06);
+    }
+    .review-body { padding: 16px; }
+    .review-quote {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      font-weight: 590;
+      margin-bottom: 8px;
+    }
+
+    .cta-card {
+      padding: 22px 18px;
+      background: linear-gradient(155deg, var(--hero-deep) 0%, var(--hero-mid) 58%, var(--hero-soft) 100%);
+      color: #fff;
+      box-shadow: 0 20px 42px rgba(142, 46, 24, 0.18);
+    }
+    .cta-card h2,
+    .cta-card p,
+    .cta-card .meta-value,
+    .cta-card .meta-label { color: #fff; }
+    .cta-card .meta {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: none;
+    }
+
+    .footer {
+      padding: 28px 0 110px;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .mobile-cta {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(101, 59, 43, 0.08);
+      box-shadow: 0 18px 40px rgba(126, 56, 31, 0.14);
+      backdrop-filter: blur(12px);
+    }
+    .mobile-cta .btn { min-height: 48px; }
+
+    @media (min-width: 760px) {
+      .hero-actions,
+      .cta-inline { grid-template-columns: repeat(2, auto); justify-content: start; }
+      .hero-meta,
+      .results,
+      .steps,
+      .proof,
+      .reviews,
+      .faq { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .mentor-card { grid-template-columns: 1.1fr .9fr; align-items: center; }
+    }
+
+    @media (min-width: 1024px) {
+      .section { padding: 70px 0; }
+      .hero-card {
+        display: grid;
+        grid-template-columns: 1.05fr .95fr;
+        align-items: stretch;
+      }
+      .hero-copy { padding: 30px 28px 20px; }
+      .hero-meta { padding: 20px 28px 28px; }
+      .stack,
+      .results,
+      .steps,
+      .proof,
+      .reviews,
+      .faq { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .footer { padding-bottom: 52px; }
+      .mobile-cta { display: none; }
+    }
+  </style>
 </head>
 <body>
-    suedie
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#top" class="brand">부스터 챌린지 8기<small>직장인을 위한 4주 경제·재테크 루틴</small></a>
+      <a class="nav-btn" href="#apply">신청하기</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="section hero">
+      <div class="container content">
+        <div class="hero-card">
+          <div class="hero-copy">
+            <div class="eyebrow">직장인을 위한 4주 실행형 챌린지</div>
+            <h1>월급은 들어오는데 돈은 잘 안 모이고,<br>경제 공부를 시작해도 어디서부터 봐야 할지 모르겠다면.</h1>
+            <p>부스터 챌린지 8기는 <strong>평일 미션 + 주말 강의</strong>를 중심으로 돈 관리, 절약, 투자 기초, 미래 준비까지 한 흐름으로 정리하는 프로그램입니다.</p>
+
+            <div class="hero-quick">
+              <div class="quick-row">4주 동안 매주 평일 미션 진행</div>
+              <div class="quick-row">주말 강의 4회, 단계별 주제 구성</div>
+              <div class="quick-row">50명 한정 모집</div>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="YOUR_APPLY_LINK_HERE" target="_blank" rel="noopener">지금 신청하기</a>
+              <a class="btn btn-secondary" href="#curriculum">커리큘럼 보기</a>
+            </div>
+          </div>
+
+          <div class="hero-meta">
+            <div class="meta">
+              <div class="meta-label">모집 일정</div>
+              <div class="meta-value">7/6 ~ 7/11(토)</div>
+            </div>
+            <div class="meta">
+              <div class="meta-label">진행 일정</div>
+              <div class="meta-value">7/13 ~ 8/9(일), 4주간</div>
+            </div>
+            <div class="meta">
+              <div class="meta-label">대상</div>
+              <div class="meta-value">경제 공부와 재테크를 시작하거나 다시 정리하고 싶은 직장인</div>
+            </div>
+            <div class="meta">
+              <div class="meta-label">방식</div>
+              <div class="meta-value">평일 인증 · 주말 강의 · 루틴 중심 운영</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <div class="container content">
+        <div class="eyebrow">왜 해야 하나</div>
+        <h2>경제 공부가 늘 미뤄졌다면,<br>지금 필요한 건 더 많은 정보가 아닙니다</h2>
+        <p>혼자 보면 끊기고, 많이 봐도 남지 않는 이유는 구조가 없기 때문입니다. 이번 4주는 뉴스 소비를 <strong>내 기준과 실행 루틴</strong>으로 바꾸는 데 집중합니다.</p>
+
+        <div class="stack">
+          <div class="card"><h3>보고 끝나는 공부</h3><p>뉴스를 읽어도 내 돈 관리와 투자로 연결되지 않습니다.</p></div>
+          <div class="card"><h3>정리되지 않는 소비</h3><p>월급이 들어와도 흐름을 모르면 늘 비슷한 패턴이 반복됩니다.</p></div>
+          <div class="card"><h3>혼자서는 끊기는 루틴</h3><p>짧더라도 매일 이어지는 구조가 있어야 습관이 됩니다.</p></div>
+        </div>
+
+        <div class="highlight">
+          <h3>이번 챌린지는 많이 아는 것보다, 끝까지 해보는 경험을 남기도록 설계했습니다.</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="who">
+      <div class="container content">
+        <div class="eyebrow">누구에게 맞나</div>
+        <h2>이런 분께 특히 잘 맞습니다</h2>
+        <div class="proof">
+          <div class="card"><h3>시작점이 필요한 분</h3><p>경제 공부를 어디서부터 봐야 할지 막막한 직장인</p></div>
+          <div class="card"><h3>연결이 어려운 분</h3><p>뉴스는 보는데 투자 판단까지 이어지지 않는 분</p></div>
+          <div class="card"><h3>혼자 오래 못 가는 분</h3><p>가벼운 강제성과 흐름이 있어야 움직이는 분</p></div>
+          <div class="card"><h3>전체를 정리하고 싶은 분</h3><p>돈 관리, 절약, 투자, 미래 준비를 한 번에 점검하고 싶은 분</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="what">
+      <div class="container content">
+        <div class="eyebrow">무엇을 얻나</div>
+        <h2>4주 뒤에는<br>내 안에 남는 기준이 생깁니다</h2>
+        <div class="results">
+          <div class="mini-item"><div class="icon">📊</div><div><h3>자산 흐름 파악</h3><p>내 돈이 어디로 움직이는지 숫자로 보게 됩니다.</p></div></div>
+          <div class="mini-item"><div class="icon">💸</div><div><h3>절약 기준 정리</h3><p>참는 절약보다 유지 가능한 구조를 만들게 됩니다.</p></div></div>
+          <div class="mini-item"><div class="icon">📈</div><div><h3>투자 판단 프레임</h3><p>뉴스와 산업, ETF를 연결해 생각하는 힘이 생깁니다.</p></div></div>
+          <div class="mini-item"><div class="icon">🧭</div><div><h3>미래 준비 방향</h3><p>연금과 보험을 어떤 순서로 볼지 감이 잡히게 됩니다.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container content">
+        <div class="eyebrow">어떻게 진행되나</div>
+        <h2>모바일로도 가볍게 따라올 수 있게,<br>진행 방식은 단순하게 잡았습니다</h2>
+        <div class="steps">
+          <div class="card"><div class="step-num">1</div><h3>평일 미션</h3><p>경제 뉴스 1개를 읽고 핵심 내용과 생각을 짧게 정리합니다.</p></div>
+          <div class="card"><div class="step-num">2</div><h3>주말 강의</h3><p>한 주의 큰 주제를 듣고 돈 관리 흐름을 단계별로 정리합니다.</p></div>
+          <div class="card"><div class="step-num">3</div><h3>쌓이는 기록</h3><p>매주 남긴 기록이 한 달 뒤 내 기준과 루틴으로 이어집니다.</p></div>
+        </div>
+
+        <div class="mentor-card">
+          <div class="mentor-head">
+            <img src="https://www.genspark.ai/api/files/s/6Kvryxhp" alt="운영자 프로필 이미지" loading="lazy" />
+            <div>
+              <div class="role">운영 · 진행</div>
+              <h3>쑤디</h3>
+              <p>1~7기 운영 경험을 바탕으로, 직장인이 실제로 따라올 수 있는 속도로 8기를 다시 정리했습니다.</p>
+            </div>
+          </div>
+          <div class="mentor-body">
+            <ul>
+              <li>짧아도 이어지는 경제 공부 루틴 중심</li>
+              <li>초보자도 따라올 수 있는 설명 흐름</li>
+              <li>8기에는 금융 전문가 세션도 함께 구성</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="curriculum">
+      <div class="container content">
+        <div class="eyebrow">4주 커리큘럼</div>
+        <h2>평일 미션은 매주 진행되고,<br>주말 강의는 아래 4가지 흐름으로 이어집니다</h2>
+
+        <div class="week-note">
+          <strong>평일 미션은 4주 내내 동일하게 진행</strong>됩니다. 경제 뉴스 핵심 내용, 인상 깊은 산업·종목, 더 보고 싶은 포인트를 짧게 정리하며 읽는 힘을 쌓습니다.
+        </div>
+
+        <div class="weeks" aria-label="주차별 강의 카드">
+          <article class="week-card">
+            <div class="week-chip">1주차</div>
+            <h3>내 돈의 현주소 파악</h3>
+            <p class="week-goal"><strong>목표</strong><br>지금 내 재정 상태와 자산 흐름을 먼저 파악하는 것</p>
+            <p><strong>강의</strong><br>직장인이 부자되는 기초, 나의 자산현황 파악하기</p>
+            <span class="tag">출발점을 분명하게 정리합니다</span>
+          </article>
+
+          <article class="week-card">
+            <div class="week-chip">2주차</div>
+            <h3>절약 시스템 만들기</h3>
+            <p class="week-goal"><strong>목표</strong><br>돈이 새는 구조를 점검하고 절약의 기준을 세우는 것</p>
+            <p><strong>강의</strong><br>직장인이 부자되는 실전 방법 중 절약 루틴 만들기</p>
+            <span class="tag">유지 가능한 소비 구조를 만듭니다</span>
+          </article>
+
+          <article class="week-card">
+            <div class="week-chip">3주차</div>
+            <h3>투자 기초와 ETF</h3>
+            <p class="week-goal"><strong>목표</strong><br>뉴스를 투자 판단으로 연결하는 프레임을 만드는 것</p>
+            <p><strong>강의</strong><br>나라 → 산업 → 개별종목, AI 시대 핵심 산업과 ETF</p>
+            <span class="tag">감이 아닌 판단 기준을 세웁니다</span>
+          </article>
+
+          <article class="week-card">
+            <div class="week-chip">4주차</div>
+            <h3>미래 준비 정리</h3>
+            <p class="week-goal"><strong>목표</strong><br>연금과 보험, 장기 준비의 우선순위를 정리하는 것</p>
+            <p><strong>강의</strong><br>직장인의 미래 준비, 연금·저축·보험의 큰 그림 이해하기</p>
+            <span class="tag">앞으로 볼 방향을 정리합니다</span>
+          </article>
+        </div>
+
+        <div class="cta-inline">
+          <a class="btn btn-outline" href="YOUR_APPLY_LINK_HERE" target="_blank" rel="noopener">커리큘럼이 맞다면 신청하기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="container content">
+        <div class="eyebrow">왜 믿어도 되나</div>
+        <h2>처음 여는 프로그램이 아니라,<br>계속 다듬어온 챌린지입니다</h2>
+        <div class="proof">
+          <div class="card"><h3>1~7기 운영 경험</h3><p>기존 기수에서 얻은 피드백을 바탕으로 8기를 다시 정리했습니다.</p></div>
+          <div class="card"><h3>6.2만 인스타 팔로워</h3><p>지속적으로 경제 콘텐츠를 발행해온 기반이 있습니다.</p></div>
+          <div class="card"><h3>후기 아카이빙 보유</h3><p>습관 형성, 초보자 만족, 재참여 후기가 이미 쌓여 있습니다.</p></div>
+        </div>
+
+        <div class="highlight">
+          <p><strong>8기에는 금융 전문가 세션이 추가</strong>되어, 돈 관리와 미래 준비까지 더 넓게 연결해 볼 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="apply">
+      <div class="container content">
+        <div class="cta-card">
+          <div class="eyebrow" style="background: rgba(255,255,255,0.14); color:#fff;">신청 안내</div>
+          <h2>좋은 내용을 저장만 하는 한 달보다,<br>내 루틴이 바뀌는 4주를 만들어보세요</h2>
+          <p>이번 8기는 짧게라도 계속 이어지는 구조에 집중합니다.</p>
+
+          <div class="hero-meta" style="padding:18px 0 0;">
+            <div class="meta">
+              <div class="meta-label">모집 일정</div>
+              <div class="meta-value">7/6 ~ 7/11(토)</div>
+            </div>
+            <div class="meta">
+              <div class="meta-label">진행 일정</div>
+              <div class="meta-value">7/13 ~ 8/9(일)</div>
+            </div>
+            <div class="meta">
+              <div class="meta-label">운영 방식</div>
+              <div class="meta-value">평일 미션 + 주말 강의</div>
+            </div>
+            <div class="meta">
+              <div class="meta-label">모집 인원</div>
+              <div class="meta-value">50명 한정</div>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-secondary" href="YOUR_APPLY_LINK_HERE" target="_blank" rel="noopener">8기 신청 링크 연결하기</a>
+            <a class="btn btn-secondary" href="#reviews">후기 모아보기</a>
+          </div>
+
+          <p style="margin-top:10px; font-size:13px; color:rgba(255,255,255,0.88);">※ 신청 폼 링크, 문의 링크, 카카오톡 채널 링크 등은 버튼 href에 교체해서 사용하세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container content">
+        <div class="eyebrow">후기 모아보기</div>
+        <h2>후기는 마지막에 한 번에,<br>변화는 분명하게 보여드릴게요</h2>
+        <div class="review-intro">
+          <p>후기 이미지는 모바일에서 원본 비율 그대로 보이도록 구성했습니다. 필요하면 Vercel 프로젝트의 <strong>/public/reviews</strong> 폴더에 직접 넣어 더 안정적으로 운영할 수 있습니다.</p>
+        </div>
+
+        <div class="reviews">
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/Teg4BL8C" alt="부스터 챌린지 후기 이미지 1" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“매일 아침 모닝루틴을 접하며 경제에 대한 관심이 자연스럽게 높아졌습니다.”</div>
+              <p>루틴 형성과 경제 관심 확장이 함께 나타난 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/Y7Gh2wqH" alt="부스터 챌린지 후기 이미지 2" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“피드백을 보면서 미래 예상 수치를 함께 해석해보니 믿음과 확신이 생겼어요.”</div>
+              <p>분석의 기준을 세우는 과정이 잘 드러나는 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/SEweedMv" alt="부스터 챌린지 후기 이미지 3" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“매일 습관을 갖게 된 환경, 책 한 권을 완독할 수 있어서 좋았습니다.”</div>
+              <p>경제 공부를 일상으로 붙이는 데 도움이 된 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/xzCwWT53" alt="부스터 챌린지 후기 이미지 4" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“한달만 해보고 끝내려 했던 참여가 벌써 3번째 신청이 되었습니다.”</div>
+              <p>재참여가 이어질 만큼 만족도와 실효감이 있었던 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/NMMy2jCd" alt="부스터 챌린지 후기 이미지 5" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“완전 초초초보인데 초보 입장에서 경제 신문도 보는 방법과 공모주 관련도 배울 수 있어서 좋았다.”</div>
+              <p>초보자도 무리 없이 따라갈 수 있었다는 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/U5pMvZIq" alt="부스터 챌린지 후기 이미지 6" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“2주차부터는 경제 신문 읽는 게 루틴화되고 자신감이 생겨 재미있었습니다.”</div>
+              <p>짧은 반복이 습관으로 바뀌는 흐름을 보여주는 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/nJV3Dy2F" alt="부스터 챌린지 후기 이미지 7" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“지금은 어느 정도 분석을 하고 기다릴 줄도 아는 주린이가 되었습니다.”</div>
+              <p>추천 의존에서 벗어나 스스로 보는 힘이 생긴 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/69lfme0R" alt="부스터 챌린지 후기 이미지 8" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“다른 사람과 함께하며 동기부여도 되고 자극도 되며 더 관심이 생겼다.”</div>
+              <p>함께하는 구조가 지속성에 도움이 되었다는 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/m3IJosbY" alt="부스터 챌린지 후기 이미지 9" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“경제 기사를 읽어도 막연했는데 이제는 흐름을 보는 눈이 조금 생겼어요.”</div>
+              <p>뉴스를 해석하는 관점이 생겼다는 흐름의 후기입니다.</p>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <img src="https://www.genspark.ai/api/files/s/0FnWhKpY" alt="부스터 챌린지 후기 이미지 10" loading="lazy" />
+            <div class="review-body">
+              <div class="review-quote">“혼자였다면 미뤘을 텐데 같이 하니까 끝까지 해낼 수 있었습니다.”</div>
+              <p>챌린지 구조의 강점이 잘 드러나는 후기입니다.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="cta-inline">
+          <a class="btn btn-secondary" href="#apply">일정 다시 보기</a>
+          <a class="btn btn-primary" href="YOUR_APPLY_LINK_HERE" target="_blank" rel="noopener">지금 신청하기</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container content">
+      <p>본 페이지는 부스터 챌린지 8기 소개용 단일 HTML 초안입니다. 교육 목적의 프로그램이며, 개별 투자 판단은 각자 상황에 맞게 신중하게 진행해 주세요.</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta" aria-label="하단 고정 CTA">
+    <a class="btn btn-secondary" href="#curriculum">커리큘럼</a>
+    <a class="btn btn-primary" href="YOUR_APPLY_LINK_HERE" target="_blank" rel="noopener">지금 신청</a>
+  </div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
