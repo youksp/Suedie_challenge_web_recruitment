@@ -468,9 +468,7 @@
       margin: 10px 0 0;
       padding-left: 18px;
     }
-    .mentor-body li {
-      line-height: 1.85;
-    }
+    .mentor-body li { line-height: 1.85; }
     .mentor-body li + li { margin-top: 6px; }
     .mentor-lecture-box {
       margin-top: 14px;
@@ -522,6 +520,18 @@
     .week-card:hover {
       box-shadow: var(--shadow-hover);
       transform: translateY(-2px);
+    }
+    .week-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .week-chip { margin-bottom: 0; }
+    .week-chip.date {
+      background: rgba(101, 59, 43, 0.07);
+      color: var(--muted);
+      font-weight: 520;
     }
     .week-goal {
       margin-top: 14px;
@@ -666,6 +676,82 @@
       font-weight: 480;
     }
 
+    /* ── Q&A ── */
+    .faq-list {
+      margin-top: 28px;
+      display: grid;
+      gap: 12px;
+    }
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 28px 1fr 24px;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: background .18s ease;
+    }
+    .faq-question:hover { background: rgba(228, 90, 51, 0.03); }
+    .faq-q-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      font-size: 13px;
+      font-weight: 720;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .faq-q-text {
+      font-size: clamp(14px, 3.8vw, 16px);
+      font-weight: 620;
+      color: var(--text);
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+    .faq-chevron {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: rgba(101,59,43,0.06);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: transform .22s ease, background .18s ease;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 24px 22px;
+      padding-left: calc(24px + 28px + 14px);
+    }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-answer p {
+      font-size: clamp(14px, 3.6vw, 15px);
+      line-height: 1.88;
+      color: var(--muted);
+    }
+
     /* ── FOOTER ── */
     .footer {
       padding: 36px 0 120px;
@@ -697,7 +783,7 @@
     }
     .mobile-cta .btn { min-height: 50px; }
 
-    /* ── IMAGE MODAL ── */
+    * ── IMAGE MODAL ── */
     /* 원본 이미지를 클릭할 수 있다는 표시 */
     .review-image-slot img {
       cursor: pointer;
@@ -762,7 +848,6 @@
       .section { padding: 56px 0; }
       .content { max-width: 100%; }
       .hero-copy { padding: 32px 24px 22px; }
-      .hero-meta { padding: 0 24px 26px; }
       .hero-quick,
       .hero-actions,
       .stack,
@@ -796,6 +881,8 @@
       .footer { padding-bottom: 130px; }
       .stat-strip { gap: 8px; }
       .stat-item { padding: 16px 10px; }
+      .faq-question { padding: 18px 20px; gap: 12px; }
+      .faq-answer { padding: 0 20px 18px; padding-left: calc(20px + 28px + 12px); }
     }
 
     @media (min-width: 760px) {
@@ -822,9 +909,7 @@
       #curriculum .content {
         max-width: 1080px;
       }
-      .hero-card {
-        display: block;
-      }
+      .hero-card { display: block; }
       .hero-copy { padding: 36px 32px 24px; }
       .hero-info-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -843,6 +928,170 @@
       .footer { padding-bottom: 56px; }
       .mobile-cta { display: none; }
     }
+  
+    /* ── LAYOUT REWORK OVERRIDES ── */
+    .hero .content,
+    #why .content,
+    #who .content,
+    #what .content,
+    #mentors .content,
+    #how .content,
+    #curriculum .content,
+    #reviews .content,
+    #faq .content {
+      max-width: var(--max);
+    }
+
+    .hero-info-strip,
+    .stack,
+    .proof,
+    .results,
+    .steps,
+    .weeks,
+    .mentor-cards-wrap,
+    .reviews,
+    .review-gallery-grid,
+    .faq-list {
+      align-items: stretch;
+    }
+
+    .hero-info-strip > *,
+    .stack > *,
+    .proof > *,
+    .results > *,
+    .steps > *,
+    .weeks > *,
+    .mentor-cards-wrap > *,
+    .reviews > *,
+    .review-gallery-grid > *,
+    .faq-list > * {
+      min-width: 0;
+      height: 100%;
+    }
+
+    .card,
+    .hero-info-card,
+    .week-card,
+    .mentor-card,
+    .stat-item,
+    .faq-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-item,
+    .review-quote-card {
+      min-height: 100%;
+    }
+
+    .section .content > p:not(.review-intro) {
+      max-width: 760px;
+    }
+
+    .stack,
+    .proof,
+    .results,
+    .steps,
+    .mentor-cards-wrap,
+    .weeks,
+    .reviews,
+    .faq-list,
+    .review-gallery-board,
+    .cta-inline {
+      margin-top: 28px;
+    }
+
+    #reviews .reviews {
+      grid-template-columns: 1fr !important;
+      gap: 14px;
+    }
+
+    #reviews .review-quote-card {
+      grid-template-columns: 42px minmax(0, 1fr);
+      align-items: center;
+    }
+
+    #why .card,
+    #who .card,
+    #how .card,
+    #curriculum .week-card,
+    #mentors .mentor-card,
+    #what .mini-item {
+      height: 100%;
+    }
+
+    @media (min-width: 760px) {
+      #reviews .reviews {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-info-strip,
+      .stack,
+      .proof,
+      .results,
+      .steps,
+      .mentor-cards-wrap,
+      .weeks,
+      .review-gallery-grid,
+      .faq-list {
+        gap: 18px;
+      }
+
+      .hero-copy {
+        padding: 40px 36px 28px;
+      }
+
+      #why .stack .card { min-height: 196px; }
+      #who .proof .card { min-height: 188px; }
+      #what .results .mini-item { min-height: 184px; }
+      #how .steps .card { min-height: 198px; }
+      #curriculum .weeks .week-card { min-height: 220px; }
+
+      #reviews .review-quote-card {
+        padding: 24px 26px;
+      }
+
+      .review-gallery-board {
+        padding: 30px 28px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-info-strip,
+      .stack,
+      .proof,
+      .results,
+      .steps,
+      .mentor-cards-wrap,
+      .weeks,
+      .review-gallery-grid,
+      .faq-list {
+        gap: 14px;
+      }
+
+      .section .content > p:not(.review-intro) {
+        max-width: 100%;
+      }
+
+      .mentor-head {
+        grid-template-columns: 72px 1fr;
+        gap: 14px;
+      }
+
+      .mentor-head img {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+      }
+
+      #reviews .review-quote-card {
+        grid-template-columns: 38px minmax(0, 1fr);
+        padding: 22px 20px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -861,13 +1110,13 @@
         <div class="hero-card">
           <div class="hero-copy">
             <div class="eyebrow">직장인을 위한 4주 실행형 챌린지</div>
-            <h1>경제 공부, 이번에는<br>메롱메롱.</h1>
-            <p>부스터 챌린지 8기는 <strong>평일 미션 + 주말 강의</strong>로 뉴스 읽기, 돈 관리, 절약, 투자 기초, 미래 준비까지 — 4주 안에 내 루틴으로 연결하는 실행형 프로그램입니다.</p>
+            <h1>경제 공부, 드디어<br>내 포트폴리오로 완성합니다</h1>
+            <p>부스터 챌린지 8기는 <strong>평일 미션 + 주말 VOD 강의</strong>로 진행됩니다. <br> 뉴스 읽기부터 돈 관리, 투자 기초, 미래 준비까지 4주 안에 내 루틴으로 연결합니다.</p>
 
             <div class="hero-quick">
-              <div class="quick-row">📌 하루 30분, 부담 없이 시작합니다</div>
-              <div class="quick-row">📖 주말마다 한 주제를 확실하게 정리합니다</div>
-              <div class="quick-row">👥 소수 인원으로 끝까지 함께 갑니다</div>
+              <div class="quick-row">📌 하루 30분이면 충분합니다</div>
+              <div class="quick-row">📖 주말마다 핵심 주제를 정리합니다</div>
+              <div class="quick-row">👥 1:1 피드백으로 포트폴리오를 다듬습니다</div>
             </div>
 
             <div class="hero-actions">
@@ -875,33 +1124,16 @@
               <a class="btn btn-secondary" href="#curriculum">커리큘럼 보기</a>
             </div>
           </div>
-
         </div>
 
         <div class="hero-info-strip" aria-label="일정 안내 정보">
           <div class="hero-info-card">
             <div class="meta-label">모집 일정</div>
-            <div class="meta-value">7/6 ~ 7/11(토)</div>
+            <div class="meta-value">7/6(월) ~ 7/11(토)</div>
           </div>
           <div class="hero-info-card">
             <div class="meta-label">진행 일정</div>
-            <div class="meta-value">7/13 ~ 8/9(일), 4주간</div>
-          </div>
-        </div>
-
-        <!-- 신뢰 수치 -->
-        <div class="stat-strip">
-          <div class="stat-item">
-            <div class="stat-num">7기</div>
-            <div class="stat-desc">누적 운영<br>경험</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">50명</div>
-            <div class="stat-desc">이번 기수<br>한정 모집</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">4주</div>
-            <div class="stat-desc">루틴이 자리잡는<br>최소 기간</div>
+            <div class="meta-value">7/13(월) ~ 8/9(일), 4주간</div>
           </div>
         </div>
       </div>
@@ -910,29 +1142,31 @@
     <div class="section-divider"></div>
 
     <!-- ── WHY ── -->
+    <!-- ✏️ C안 반영: eyebrow + h2 + 본문 -->
     <section class="section" id="why">
       <div class="container content">
         <div class="eyebrow">왜 이 챌린지가 필요한가</div>
-        <h2>정보를 더 보는 것보다,<br>내 기준이 먼저 생겨야 합니다</h2>
-        <p>뉴스, 유튜브, 블로그를 계속 봐도 막상 내 돈에는 적용이 안 되는 이유는 단 하나, <strong>판단 기준이 없기 때문</strong>입니다. 이번 4주는 많이 아는 것보다 <strong>흐름을 읽고 스스로 결정하는 힘</strong>을 만드는 데 집중합니다.</p>
+        <h2>정보는 많은데,<br>왜 결과는 그대로일까요?</h2>
+        <p>인스타에 뜨는 수많은 정보를 저장하지만, 내 계좌는 쉽게 달라지지 않습니다. <br>  정보를 몰라서가 아니라 <strong>내 상황에 맞는 기준으로 바꾸는 과정</strong>이 없기 때문입니다. 
+			<br> 이번 4주는 지식을 더 쌓기보다 <strong>내 돈에 적용되는 기준과 실행 구조</strong>를 만드는 데 집중합니다.</p>
 
         <div class="stack">
           <div class="card">
-            <h3>뉴스를 봐도 연결이 안 되는 상태</h3>
-            <p>읽긴 읽는데 그래서 뭘 해야 하는지 정리가 안 됩니다. 정보가 아니라 해석하는 틀이 필요합니다.</p>
+            <h3>뉴스는 보는데 계좌는 그대로인 상태</h3>
+            <p>이슈는 아는데, 어떤 산업과 ETF를 봐야 할지까지는 연결되지 않습니다.</p>
           </div>
           <div class="card">
-            <h3>월급은 들어오는데 잘 안 모이는 상태</h3>
-            <p>수입보다 구조를 먼저 봐야 돈이 남기 시작합니다. 절약은 의지가 아니라 설계의 문제입니다.</p>
+            <h3>열심히 버는데 남는 돈은 비슷한 상태</h3>
+            <p>절약도 기준이 없으면 오래 못 갑니다. 소비 구조와 우선순위를 먼저 정해야 돈이 남기 시작합니다.</p>
           </div>
           <div class="card">
-            <h3>공부를 결심해도 오래 못 가는 상태</h3>
-            <p>짧더라도 매일 이어지는 흐름이 있어야 진짜 내 것이 됩니다. 혼자서는 어렵습니다.</p>
+            <h3>이번엔 해보자고 해도 곧 포기하는 상태</h3>
+            <p>혼자 공부하면 정보는 쌓여도 실행은 끊기기 쉽습니다. 짧게라도 이어가는 구조가 있어야 결과가 남습니다.</p>
           </div>
         </div>
 
         <div class="highlight">
-          <h3>이 챌린지는 정보를 더 쌓는 시간이 아닙니다.<br>내 생활에 붙는 재테크 루틴을 만드는 4주입니다.</h3>
+          <h3>이 챌린지는 공부만 더 하는 4주가 아닙니다.<br>내 기준과 포트폴리오 초안을 만드는 4주입니다.</h3>
         </div>
       </div>
     </section>
@@ -940,26 +1174,27 @@
     <div class="section-divider"></div>
 
     <!-- ── WHO ── -->
+    <!-- ✏️ C안 다듬어서 반영 -->
     <section class="section" id="who">
       <div class="container content">
         <div class="eyebrow">이런 분이라면 잘 맞습니다</div>
-        <h2>처음 시작하는 분도,<br>다시 제대로 정리하고 싶은 분도 환영합니다</h2>
+        <h2>공부에서 끝나지 않고,<br>내 기준과 포트폴리오를 만들고 싶은 분께 맞습니다</h2>
         <div class="proof">
           <div class="card">
-            <h3>어디서부터 볼지 막막한 분</h3>
-            <p>경제 공부를 시작하고 싶은데 순서와 방향이 필요한 분</p>
+            <h3>무엇부터 봐야 할지 막막한 분</h3>
+            <p>경제, 주식, ETF, 연금까지 넓은 주제를 순서대로 정리하고 싶은 분</p>
           </div>
           <div class="card">
-            <h3>뉴스를 내 판단으로 바꾸고 싶은 분</h3>
-            <p>읽은 내용을 산업·ETF·투자 기준으로 연결해보고 싶은 분</p>
+            <h3>남의 추천 말고 내 기준이 필요한 분</h3>
+            <p>뉴스와 이슈를 봐도 매수와 보류 판단이 흔들려, <br> 나만의 기준을 만들고 싶은 분</p>
           </div>
           <div class="card">
-            <h3>혼자서는 계속 미루게 되는 분</h3>
-            <p>가벼운 강제성과 함께하는 흐름이 있으면 훨씬 잘 해내는 분</p>
+            <h3>단기와 장기를 나눠 정리하고 싶은 분</h3>
+            <p>지금 할 투자와 미래 준비를 나눠, <br> 현실적인 포트폴리오 초안을 만들고 싶은 분</p>
           </div>
           <div class="card">
-            <h3>돈 관리 전체를 다시 점검하고 싶은 분</h3>
-            <p>소비, 절약, 투자, 미래 준비를 한 번에 정리해보고 싶은 분</p>
+            <h3>혼자 하다 막히는 지점을 정리하고 싶은 분</h3>
+            <p>혼자 하면 미루게 되는 부분을 <br> 과제와 1:1 피드백으로 끝까지 완성하고 싶은 분</p>
           </div>
         </div>
       </div>
@@ -971,34 +1206,85 @@
     <section class="section" id="what">
       <div class="container content">
         <div class="eyebrow">4주 뒤 얻게 되는 것</div>
-        <h2>끝나고 나면,<br>막연함 대신 내 기준이 남습니다</h2>
+        <h2>끝나고 나면,<br>막연함 대신 나만의 기준이 남습니다</h2>
         <div class="results">
           <div class="mini-item">
             <div class="icon">📊</div>
             <div>
               <h3>내 돈 흐름 파악</h3>
-              <p>자산과 소비 구조를 숫자로 보게 됩니다.</p>
-            </div>
-          </div>
-          <div class="mini-item">
-            <div class="icon">💸</div>
-            <div>
-              <h3>절약 기준 정리</h3>
-              <p>참는 절약이 아니라 유지 가능한 절약 구조를 만들게 됩니다.</p>
+              <p>자산과 소비 구조를 숫자로 정리하고, <br> 어디부터 손볼지 분명해집니다.</p>
             </div>
           </div>
           <div class="mini-item">
             <div class="icon">📈</div>
             <div>
               <h3>투자 판단 프레임</h3>
-              <p>뉴스를 읽고 산업과 ETF를 연결해 생각하는 힘이 생깁니다.</p>
+              <p>뉴스를 읽고 산업과 ETF를 연결해, <br> 매수와 보류 기준이 생깁니다.</p>
             </div>
           </div>
           <div class="mini-item">
             <div class="icon">🧭</div>
             <div>
-              <h3>미래 준비 큰 그림</h3>
-              <p>연금과 보험을 어떤 순서로 봐야 할지 큰 흐름이 잡힙니다.</p>
+              <h3>미래 준비 큰그림</h3>
+              <p>연금·절세·보험을 어떤 순서로 볼지 큰 그림이 잡힙니다.</p>
+            </div>
+          </div>
+          <div class="mini-item">
+            <div class="icon">💼</div>
+            <div>
+              <h3>맞춤 포트폴리오 초안</h3>
+              <p>단기 투자와 장기 준비를 나눠, <br> 내 상황에 맞는 포트폴리오를 직접 정리합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ── MENTORS ── -->
+    <section class="section" id="mentors">
+      <div class="container content">
+        <div class="eyebrow">함께하는 사람들</div>
+        <h2>이번 4주를 함께 설계하고<br>끝까지 끌고 갈 사람들입니다</h2>
+ 
+
+        <div class="mentor-cards-wrap">
+          <!-- 쑤디 -->
+          <div class="mentor-card">
+            <div class="mentor-head">
+              <img src="image/suedie_profile_img.jpg" alt="운영자 쑤디 프로필 이미지" loading="lazy" />
+              <div>
+                <div class="role">✦ 운영 · 진행</div>
+                <h3>쑤디 suedie</h3>
+              </div>
+            </div>
+            <div class="mentor-body">
+              <ul>
+                <li>인스타 @suedie_log 6.2만 팔로워</li>
+                <li>부스터 챌린지 7기 누적 운영 경험</li>
+                <li>26년 상반기 실현 수익 2.3천만원</li>
+                <li>주식 투자로 매달 제2의 월급 벌기 진행 중</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 머니메이커스 본부장 김병인 -->
+          <div class="mentor-card special">
+            <div class="mentor-head">
+              <img src="image/KimByungIn_profile_img.jpg" alt="머니메이커스 본부장 김병인 프로필 이미지" loading="lazy" style="border-color:rgba(60,100,200,0.14); background:#dce8f8;" />
+              <div>
+                <div class="special-badge">✦ 머니메이커스 본부장</div>
+                <h3>김병인</h3>
+              </div>
+            </div>
+            <div class="mentor-body">
+              <ul>
+                <li>SK하이닉스·P&amp;G 등 외부 기업 세미나 다수 진행</li>
+                <li>네이버 재테크 카페 모임장</li>
+                <li>금융 자격증 다수</li>
+                <li>유언상속플랫폼 '망고하다' 코파운더</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1016,73 +1302,20 @@
           <div class="card">
             <div class="step-num">STEP 1</div>
             <h3>평일 미션</h3>
-            <p>경제 뉴스 1개를 읽고 핵심 내용, 인상 깊은 포인트, 내 생각을 짧게 정리합니다. 하루 10분이면 충분합니다.</p>
+            <p>경제 뉴스 1개를 읽고 <br> 핵심 내용과 내 생각을 짧게 정리합니다. <br> 하루 30분이면 충분합니다.</p>
           </div>
           <div class="card">
             <div class="step-num">STEP 2</div>
-            <h3>주말 강의</h3>
-            <p>그 주의 핵심 주제를 듣고 내 돈 관리 흐름에 연결해봅니다. 이론이 아니라 실전 적용 중심입니다.</p>
+            <h3>주말 강의(VOD)</h3>
+            <p>매주 핵심 주제를 한 번에 정리합니다. 흩어진 정보를 내 돈 관리와 <br> 투자 판단에 연결하는 시간입니다.</p>
           </div>
           <div class="card">
             <div class="step-num">STEP 3</div>
-            <h3>쌓이는 기준</h3>
-            <p>한 주 한 주 쌓인 기록이 결국 내 기준과 루틴이 됩니다. 4주가 지나면 달라진 시각이 느껴집니다.</p>
+            <h3>1:1 피드백</h3>
+            <p>제출한 과제에서 보완이 필요한 부분을 <br> 1:1 피드백으로 함께 <br> 수정해 나갈 예정입니다.</p>
           </div>
         </div>
 
-        <!-- 운영자 카드 2인 -->
-        <div class="mentor-cards-wrap">
-
-          <!-- 쑤디 -->
-          <div class="mentor-card">
-            <div class="mentor-head">
-              <img src="image/suedie_profile_img.jpg" alt="운영자 쑤디 프로필 이미지" loading="lazy" />
-              <div>
-                <div class="role">✦운영 · 진행</div>
-                <h3>쑤디</h3>
-                <p>1~7기 운영 경험을 바탕으로, 8기는 더 짧고 선명한 흐름으로 다시 구성했습니다.</p>
-              </div>
-            </div>
-            <div class="mentor-body">
-              <ul>
-                <li>인스타 6.2만 팔로워 </li>
-                <li>부스터 챌린지 7기 누적 운영 경험</li>
-                <li>주식 투자로 월급 벌기 진행 중</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- 머니메이커스 본부장 김병인 -->
-          <div class="mentor-card special">
-            <div class="mentor-head">
-              <img src="image/KimByungIn_profile_img.jpg" alt="머니메이커스 본부장 김병인 프로필 이미지" loading="lazy" style="border-color:rgba(60,100,200,0.14); background:#dce8f8;" />
-              <div>
-                <div class="special-badge">✦ 머니메이커스 본부장</div>
-           
-                <h3>김병인</h3>
-                <div class="mentor-tags">
-                  <span class="mentor-tag">네이버 재테크 카페 모임장</span>
-                  <span class="mentor-tag">기업 세미나 다수</span>
-                  <span class="mentor-tag">금융 자격증 다수</span>
-                </div>
-              </div>
-            </div>
-            <div class="mentor-body">
-              <ul>
-                <li>SK하이닉스·P&amp;G 등 외부 기업 세미나 다수 진행</li>
-                <li>유언상속플랫폼 '망고하다' 코파운더</li>
-              </ul>
-              <div class="mentor-lecture-box">
-                <div class="lecture-label">특별 강연 · 투자 전반</div>
-                <ul>
-                  <li>월급쟁이 경제적 자유 로드맵</li>
-                  <li>최적의 포트폴리오 전략</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </div>
     </section>
 
@@ -1091,75 +1324,72 @@
     <!-- ── CURRICULUM ── -->
     <section class="section" id="curriculum">
       <div class="container content">
-        <div class="eyebrow">4주 커리큘럼</div>
-        <h2>평일 미션은 매주 이어지고,<br>주말 강의는 4주 동안 이렇게 진행됩니다</h2>
-
-        <div class="week-note">
-          <strong>평일 미션은 4주 내내 동일하게 진행</strong>됩니다. 경제 뉴스 핵심 내용, 눈에 들어온 산업·종목, 더 공부해볼 포인트를 짧게 정리하며 읽는 힘을 만듭니다.
-        </div>
+        <div class="eyebrow">4주 VOD 커리큘럼</div>
+        <h2>기준을 세우고 포트폴리오로 잇는<br>4주 간의 주말 강의(VOD) 커리큘럼</h2>
 
         <div class="weeks" aria-label="주차별 강의 카드">
           <article class="week-card">
-            <div class="week-chip">1주차</div>
-			<div class="week-chip">7/13~7/19</div>
+            <div class="week-chip-row">
+              <div class="week-chip">1주차</div>
+              <div class="week-chip date">7/13 ~ 7/19</div>
+            </div>
             <h3>내 돈의 현주소 파악하기</h3>
-            <p class="week-goal"><strong>목표</strong><br>지금 내 재정 상태와 자산 흐름을 먼저 정확히 파악하기</p>
-            <p><strong>과제</strong><br>내 고정비와 변동비 명확히 알기</p>
-          
+            <p class="week-goal"><strong>목표</strong><br>지금 내 재정 상태와 자산 흐름을 정확히 파악하기</p>
+            <p><strong>과제</strong><br>내 고정비와 변동비 분석하기</p>
           </article>
 
           <article class="week-card">
-            <div class="week-chip">2주차</div>
-			<div class="week-chip">7/20~7/26</div>
-            <h3>직장인이 투자로 수익내는 현실적인 방법 </h3>
+            <div class="week-chip-row">
+              <div class="week-chip">2주차</div>
+              <div class="week-chip date">7/20 ~ 7/26</div>
+            </div>
+            <h3>직장인이 투자로 수익내는 현실적인 방법</h3>
             <p class="week-goal"><strong>목표</strong><br>AI 시대, 핵심 종목 고르는 방법</p>
-            <p><strong>과제</strong><br>나의 투자 단기 포트폴리오 구성해보기</p>
-         
+            <p><strong>과제</strong><br>나의 단기 투자 포트폴리오 초안 구성하기</p>
           </article>
 
           <article class="week-card">
-            <div class="week-chip">3주차</div>
-			<div class="week-chip">7/27~8/2</div>
+            <div class="week-chip-row">
+              <div class="week-chip">3주차</div>
+              <div class="week-chip date">7/27 ~ 8/2</div>
+            </div>
             <h3>내 노후를 위한 투자 포트폴리오</h3>
-            <p class="week-goal"><strong>목표</strong><br>직장인의 미래 준비 - 연금/절세/보험</p>
-            <p><strong>과제</strong><br>은퇴 후 노후 준비를 위한 장기 포트폴리오 구성하기 </p>
-          
+            <p class="week-goal"><strong>목표</strong><br>직장인의 미래 준비 — 연금/절세/보험</p>
+            <p><strong>과제</strong><br>은퇴 후 노후 준비를 위한 장기 포트폴리오 구성하기</p>
           </article>
 
           <article class="week-card">
-            <div class="week-chip">4주차</div>
-			<div class="week-chip">8/3~8/9</div>
-            <h3> 경제 공부 그래서 어떻게 해야하나요? </h3>
-            <p class="week-goal"><strong>목표</strong><br> 경제 기본, 기초 투자 방법 익히기 </p>
-            <p><strong>과제</strong><br> 포트폴리오 최종 점검 </p>
-           
+            <div class="week-chip-row">
+              <div class="week-chip">4주차</div>
+              <div class="week-chip date">8/3 ~ 8/9</div>
+            </div>
+            <h3>경제 뉴스와 투자 기초</h3>
+            <p class="week-goal"><strong>목표</strong><br>경제 이슈를 투자 판단으로 연결하는 기본 틀 익히기</p>
+            <p><strong>과제</strong><br>포트폴리오 최종 정리하기</p>
           </article>
-        </div>
         </div>
       </div>
     </section>
 
     <div class="section-divider"></div>
 
-  
-
-    <!-- ── REVIEWS (따옴표) ── -->
+    <!-- ── REVIEWS ── -->
     <section class="section" id="reviews">
       <div class="container content">
         <div class="eyebrow">수강생 후기</div>
-        <h2>이전 기수 참여자들의 <br>후기가 궁금하다면!</h2>
-     
+        <h2>먼저 시작한 사람들이<br>남긴 실제 변화입니다</h2>
+
         <div class="reviews">
           <article class="review-quote-card"><div class="review-quote">"매일 아침 모닝루틴을 접하며 경제에 대한 관심이 자연스럽게 높아졌습니다."</div></article>
           <article class="review-quote-card"><div class="review-quote">"2주차부터는 경제 신문 읽는 게 루틴화되고 자신감이 생겨 재미있었습니다."</div></article>
-          <article class="review-quote-card"><div class="review-quote">"혼자였다면 미뤘을 텐데 같이 하니까 끝까지 해낼 수 있었습니다."</div></article>
-		  <article class="review-quote-card"><div class="review-quote">"경제 기사를 읽어도 막연했는데 이제는 흐름을 보는 눈이 조금 생겼어요."</div></article>
-		  <article class="review-quote-card"><div class="review-quote">"피드백을 보면서 미래 예상 수치를 함께 해석해보니 믿음과 확신이 생겼어요."</div></article>
+          <article class="review-quote-card"><div class="review-quote">"혼자였다면 미뤘을텐데 같이 하니까 끝까지 해낼 수 있었습니다."</div></article>
+          <article class="review-quote-card"><div class="review-quote">"경제 기사를 읽어도 막연했는데 이제는 흐름을 보는 눈이 조금 생겼어요."</div></article>
+          <article class="review-quote-card"><div class="review-quote">"피드백을 보면서 미래 예상 수치를 함께 해석해보니 종목에 대한 믿음과 확신이 생겼어요."</div></article>
           <article class="review-quote-card"><div class="review-quote">"매일 습관을 갖게 된 환경, 책 한 권을 완독할 수 있어서 좋았습니다."</div></article>
           <article class="review-quote-card"><div class="review-quote">"한달만 해보고 끝내려 했던 참여가 벌써 3번째 신청이 되었습니다."</div></article>
-          <article class="review-quote-card"><div class="review-quote">"완전 초초초보인데 초보 입장에서 경제 신문 보는 방법과 공모주를 배울 수 있어서 좋았다."</div></article>
-          <article class="review-quote-card"><div class="review-quote">"지금은 어느 정도 분석을 하고 기다릴 줄도 아는 주린이가 되었습니다."</div></article>
-          <article class="review-quote-card"><div class="review-quote">"다른 사람과 함께하며 동기부여도 되고 자극도 되며 더 관심이 생겼다."</div></article>
+          <article class="review-quote-card"><div class="review-quote">"완전 초초초보인데 초보 입장에서 경제 신문 보는 방법과 공모주를 배울 수 있어서 좋았어요."</div></article>
+          <article class="review-quote-card"><div class="review-quote">"지금은 어느 정도 분석을 하고 매수를 기다릴 줄도 아는 주린이가 되었습니다."</div></article>
+          <article class="review-quote-card"><div class="review-quote">"다른 사람과 함께하며 동기부여도 되고 자극도 되며 경제에 더 관심이 생겼어요."</div></article>
         </div>
 
         <div class="review-gallery-board">
@@ -1181,11 +1411,95 @@
       </div>
     </section>
 
+    <div class="section-divider"></div>
+
+    <!-- ── Q&A ── -->
+    <section class="section" id="faq">
+      <div class="container content">
+        <div class="eyebrow">자주 묻는 질문</div>
+        <h2>신청 전에 궁금한 것들,<br>여기서 바로 확인하세요</h2>
+
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">투자 경험이 전혀 없어도 참여할 수 있나요?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>네, 완전 초보도 따라올 수 있게 설계했습니다. 1주차는 내 재정 현황 파악부터 시작합니다. 실제로 이전 기수에도 "완전 초초초보"였다는 후기가 많았습니다.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">하루에 얼마나 시간을 써야 하나요?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>평일 미션은 하루 30분 내외입니다. 주말 강의(VOD)는 원하는 시간에 자유롭게 들을 수 있어 직장인도 무리 없이 따라올 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">포트폴리오는 어떤 형태로 완성되나요?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>단기 투자 포트폴리오와 장기 포트폴리오를 각각 과제로 만듭니다. 마지막에는 이를 한 번 더 점검해 실제로 활용 가능한 형태로 정리합니다.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">1:1 피드백은 어떻게 진행되나요?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>제출한 과제를 바탕으로 보완이 필요한 부분을 함께 수정합니다. 단순 첨삭이 아니라, 내 상황에 맞는 방향을 같이 잡아가는 방식입니다.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">챌린지가 끝난 후에도 자료를 볼 수 있나요?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>강의 VOD와 과제 피드백 자료는 종료 후에도 일정 기간 열람 가능합니다. 자세한 기간은 신청 후 안내드립니다.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">단기간 종목 추천이나 수익 보장을 기대해도 되나요?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>이 챌린지는 특정 종목 추천이나 단기 수익 보장을 목표로 하지 않습니다. 대신 내 상황에 맞는 기준을 세우고, 스스로 판단할 수 있는 포트폴리오 초안을 만드는 데 집중합니다.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="cta-inline">
+          <a class="btn btn-primary" href="YOUR_APPLY_LINK_HERE" target="_blank" rel="noopener">지금 신청하기 →</a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
     <div class="container content">
-      <p>본 페이지는 부스터 챌린지 8기 소개용 단일 HTML 페이지입니다.<br>교육 목적의 프로그램이며, 개별 투자 판단은 각자 상황에 맞게 신중하게 진행해 주세요.</p>
+      <p>본 페이지는 부스터 챌린지 8기 신청용 페이지입니다.<br>교육 목적의 프로그램이며, 개별 투자 판단은 각자 상황에 맞게 신중하게 진행해 주세요.</p>
     </div>
   </footer>
 
@@ -1195,14 +1509,13 @@
   </div>
 
   <div id="imageModal" class="modal">
-    <span class="close-modal">&times;</span>
-    <img class="modal-content" id="modalImage">
+    <span class="close-modal">&times;</span> <img class="modal-content" id="expandedImg">
   </div>
-  
+
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+   document.addEventListener('DOMContentLoaded', function() {
       const modal = document.getElementById("imageModal");
-      const modalImg = document.getElementById("modalImage");
+      const modalImg = document.getElementById("expandedImg");
       const closeBtn = document.querySelector(".close-modal");
 
       // 리뷰 슬롯 안에 있는 모든 이미지 선택
@@ -1228,8 +1541,31 @@
         }
       });
     });
+
+
+    // FAQ 아코디언
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        // 다른 항목 닫기
+        document.querySelectorAll('.faq-item.open').forEach(function(el) {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        // 현재 항목 토글
+        if (!isOpen) {
+          item.classList.add('open');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
   </script>
+
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
 </body>
 </html>
